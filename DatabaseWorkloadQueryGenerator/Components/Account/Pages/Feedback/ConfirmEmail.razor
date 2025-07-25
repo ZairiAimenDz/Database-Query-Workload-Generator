@@ -11,8 +11,13 @@
 
 <PageTitle>Confirm email</PageTitle>
 
-<h1>Confirm email</h1>
-<StatusMessage Message="@statusMessage" />
+<DatabaseWorkloadQueryGenerator.Components.Shared.Feedback.FullPageMessage
+ErrorCode="@(statusMessage?.StartsWith("Error") ?? false ? "400" : "200")" SubTitle="" CTALink="/Account/Login" CTAText="Login" SecondaryLink="/Account/ResendEmailConfirmation"
+                                                                           Title="Confirmation Status" SecondaryText="Try Sending Again">
+    <ExtraContent>
+        <StatusMessage Message="@statusMessage" />
+    </ExtraContent>
+</DatabaseWorkloadQueryGenerator.Components.Shared.Feedback.FullPageMessage>
 
 @code {
     private string? statusMessage;

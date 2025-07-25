@@ -1,0 +1,167 @@
+﻿@using DatabaseWorkloadQueryGenerator.Application.Interfaces.Users
+@using DatabaseWorkloadQueryGenerator.Application.Models.UserEntities
+@rendermode InteractiveServer
+@inject IAccountSettingsService SettingsService
+@inject NavigationManager NavigationM
+
+
+<div class="py-6">
+    <EditForm Model="@ChgModel" Context="CTX" OnValidSubmit="Save" class="w-full md:grid md:grid-cols-4 md:gap-4 md:px-0">
+        <dt class="text-sm/6 font-medium text-gray-900 inline-flex max-md:items-center md:items-start justify-between w-full">
+            <p class="font-extrabold inline-flex items-center gap-3">Email Address
+                @if (IsSuccess)
+                {
+                    <svg class="w-6 h-6 text-green-500" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" viewBox="0 0 24 24">
+                        <path fill-rule="evenodd" d="M2 12C2 6.477 6.477 2 12 2s10 4.477 10 10-4.477 10-10 10S2 17.523 2 12Zm13.707-1.293a1 1 0 0 0-1.414-1.414L11 12.586l-1.793-1.793a1 1 0 0 0-1.414 1.414l2.5 2.5a1 1 0 0 0 1.414 0l4-4Z" clip-rule="evenodd" />
+                    </svg>
+                }
+                </p>
+            @if (!EditMode)
+            {
+                <button @onclick="ToggleEditMode" type="button" class="md:hidden btn btn-neutral btn-sm">Update</button>
+            }
+            else
+            {
+                <div class="space-y-2 space-x-2">
+                    <button @onclick="CancelChanges" type="button" class="md:hidden btn btn-warning btn-sm">Cancel</button>
+                    <button type="submit" class="md:hidden btn btn-success btn-sm">Save</button>
+                </div/>
+            }
+        </dt>
+        <dd class="mt-1 text-sm/6 text-gray-700 sm:col-span-3 sm:mt-0 w-full">
+            <div class="w-full inline-flex gap-4">
+                <div class="grow">
+                    @if (EditMode)
+                    {
+
+                        <EditForm Model="@Model" OnValidSubmit="SendCodebyEmail">
+                            <div class="form-control ">
+                                <label class="label">
+                                    <span class="label-text">New Email</span>
+                                </label>
+                                <input type="email" @bind="Model.NewEmail" 
+                                class="input input-sm input-bordered max-w-lg"
+                                placeholder="Enter new Email" />
+                                <ValidationMessage For="@(() => Model.NewEmail)" 
+                                class="text-red-500 mt-1 text-sm" />
+                            </div>
+                            @if (CodeSent)
+                            {
+                                <p class="text-green-400 mt-2">Code Sent</p>
+                            }else{
+                                <button class="btn btn-sm btn-info mt-2">Send Code</button>
+                            }
+                        </EditForm>
+
+                        <div class="form-control"> 
+                            <label class="label">
+                                <span class="label-text">Code Received</span>
+                            </label>
+                            <InputText type="text" @bind-Value="ChgModel.Token" 
+                            class="input input-sm input-bordered max-w-lg"
+                            placeholder="Code (6 Characters)" />
+                            <ValidationMessage For="@(() => ChgModel.Token)" 
+                            class="text-red-500 mt-1 text-sm" />
+                        </div>                      
+
+                        <div class="mt-4">
+                            @if (IsError)
+                            {
+                                <div class="alert alert-error">
+                                    @foreach (var error in Errors)
+                                    {
+                                        <p>@error</p>
+                                    }
+                                </div>
+                            }
+                        </div>
+                    <DataAnnotationsValidator />
+                    }
+                    else
+                    {
+                        <p class="font-bold">@CurrentEmail</p>
+                    }
+                </div>
+                <div class="space-y-2 space-x-2">
+                    @if (!EditMode)
+                    {
+                        <button @onclick="ToggleEditMode" type="button" class="max-md:hidden btn btn-neutral btn-sm">Update</button>
+                    }
+                    else
+                    {
+                        <button @onclick="ToggleEditMode" type="button" class="max-md:hidden btn btn-warning btn-sm">Cancel</button>
+                        <button type="submit" class="max-md:hidden btn btn-success btn-sm">Save</button>
+                    }
+                </div>
+            </div>
+        </dd>
+    </EditForm>
+</div>
+
+@code {
+    private bool EditMode = false;
+
+    [Parameter]
+    public Guid UserId { get; set; }
+
+    [Parameter]
+    public string CurrentEmail { get; set; } = "";
+
+    bool IsSuccess = false;
+    bool CodeSent = false;
+    bool IsError = false;
+    string[] Errors = [];
+
+    private SendEmailResetCodeDTO Model = new();
+    private EmailChangeWithCodeDTO ChgModel = new();
+
+    protected override Task OnInitializedAsync()
+    {
+        return base.OnInitializedAsync();
+    }
+
+    private async Task Save()
+    {
+        CodeSent = false;
+        var res = await SettingsService.ChangeEmailWithCode(UserId, ChgModel);
+        if (res.Succeeded)
+        {
+            ToggleEditMode();
+            CurrentEmail = Model.NewEmail;
+            IsSuccess = true;
+            await Task.Delay(3000);
+            IsSuccess = false;
+            IsError = false;
+            Errors = [];
+        }
+        else
+        {
+            IsError = true;
+            Errors = res.Errors.ToArray() ?? [];
+        }
+    }
+
+    private async Task SendCodebyEmail(){
+        var res = await SettingsService.SendEmailResetCode(UserId,Model);
+        if (res.Succeeded)
+        {
+            CodeSent = true;
+            ChgModel.NewEmail = Model.NewEmail; 
+        }
+        else
+        {
+            IsError = true;
+            Errors = res.Errors.ToArray() ?? [];
+        }
+    }
+
+    private void ToggleEditMode()
+    {
+        EditMode = !EditMode;
+    }
+
+    public void CancelChanges()
+    {
+        ToggleEditMode();
+    }
+}

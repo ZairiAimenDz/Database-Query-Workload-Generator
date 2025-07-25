@@ -7,8 +7,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="Models\" />
-    <Folder Include="Interfaces\" />
+    <ProjectReference Include="..\DatabaseWorkloadQueryGenerator.Core\DatabaseWorkloadQueryGenerator.Core.csproj" />
   </ItemGroup>
 
 </Project>

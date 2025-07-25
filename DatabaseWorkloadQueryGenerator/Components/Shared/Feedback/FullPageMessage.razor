@@ -1,0 +1,40 @@
+﻿<main class="grid min-h-full place-items-center bg-neutral-content px-6 py-24 lg:px-8">
+    <div class="text-center">
+        <p class="text-lg font-black @(ErrorCode.StartsWith("2") ? "text-success" : ErrorCode.StartsWith("3") ? "text-warning" : "text-error")">@ErrorCode</p>
+        <h1 class="mt-4 text-base-content text-4xl font-semibold tracking-tight sm:text-5xl max-w-4xl mx-auto">@Title</h1>
+        <p class="mt-6 text-lg sm:text-xl/8 max-w-4xl mx-auto">@SubTitle</p>
+        @ExtraContent
+        @if (!string.IsNullOrEmpty(SecondaryLink) || !string.IsNullOrEmpty(CTALink))
+        {
+            <div class="mt-10 flex max-md:flex-col items-center justify-center gap-6">
+                @if (!string.IsNullOrEmpty(CTALink))
+                {
+                    <a href="@CTALink" class="btn btn-info text-neutral-content">@CTAText</a>
+                }
+                @if (!string.IsNullOrEmpty(SecondaryLink))
+                {
+                    <a href="@SecondaryLink" class="font-semibold">@SecondaryText <span aria-hidden="true">&rarr;</span></a>
+                }
+            </div>
+        }
+    </div>
+</main>
+
+@code {
+    [Parameter]
+    public string ErrorCode { get; set; } = "404";
+    [Parameter]
+    public string Title { get; set; } = "Page not found";
+    [Parameter]
+    public string SubTitle { get; set; } = "Sorry, we couldn’t find the content you’re looking for.";
+    [Parameter]
+    public string CTALink { get; set; } = "/";
+    [Parameter]
+    public string SecondaryLink { get; set; } = "mailto:zairiaimendev@outlook.com";
+    [Parameter]
+    public string CTAText { get; set; } = "Go back home";
+    [Parameter]
+    public string SecondaryText { get; set; } = "Contact support";
+    [Parameter]
+    public RenderFragment? ExtraContent { get; set; }
+}

@@ -1,0 +1,89 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Email Template</title>
+    <style>
+        /* General Reset */
+        body, html {
+            margin: 0;
+            padding: 0;
+            width: 100%;
+            height: 100%;
+            font-family: Helvetica;
+            background-color: #5F8AAE; /* Blue Background */
+        }
+
+        /* Container */
+        .email-container {
+            max-width: 600px;
+            margin: 30px auto;
+            background-color: #fff; /* White Foreground */
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        }
+
+        /* Header Section */
+        .header {
+            text-align: center;
+            padding: 20px 10px;
+            border-bottom: 2px solid #ddd;
+        }
+
+            .header img {
+                max-width: 100px; /* Logo Size */
+            }
+
+            .header h1 {
+                margin: 10px 0 0 0;
+                font-size: 28px;
+                color: #333;
+                font-weight: bold;
+            }
+
+        /* Content Section */
+        .content {
+            padding: 40px 20px;
+            text-align: center;
+            font-size: 16px;
+            line-height: 1.5;
+            color: #444;
+        }
+
+        /* Footer Section */
+        .footer {
+            text-align: center;
+            padding: 10px;
+            font-size: 12px;
+            color: #888;
+            border-top: 2px solid #ddd;
+        }
+
+        a {
+            color: #5F8AAE;
+            text-decoration: none;
+        }
+    </style>
+</head>
+<body>
+    <div class="email-container">
+        <!-- Header with Logo -->
+        <div class="header">
+            <img src="https://developmvp.net/favicon.png" alt="Logo"> <!-- Replace with your logo URL -->
+            <h1>{{title}}</h1>
+        </div>
+
+        <!-- Dynamic Content -->
+        <div class="content">
+            {{content}}
+        </div>
+
+        <!-- Footer -->
+        <div class="footer">
+            <p>Visit at <a target="_blank" href="https://www.developmvp.net">www.developmvp.net</a></p>
+        </div>
+    </div>
+</body>
+</html>

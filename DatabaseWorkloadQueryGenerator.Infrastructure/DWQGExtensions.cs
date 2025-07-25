@@ -1,8 +1,12 @@
-﻿using DatabaseWorkloadQueryGenerator.Core.Constants;
+﻿using DatabaseWorkloadQueryGenerator.Application.Interfaces.Notifications;
+using DatabaseWorkloadQueryGenerator.Application.Interfaces.Users;
+using DatabaseWorkloadQueryGenerator.Core.Constants;
 using DatabaseWorkloadQueryGenerator.Core.Entities.Users;
 using DatabaseWorkloadQueryGenerator.Infrastructure.Abstractions;
 using DatabaseWorkloadQueryGenerator.Infrastructure.Identity;
 using DatabaseWorkloadQueryGenerator.Infrastructure.Persistence;
+using DatabaseWorkloadQueryGenerator.Infrastructure.Services.Notifications;
+using DatabaseWorkloadQueryGenerator.Infrastructure.Services.Users;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
@@ -167,6 +171,8 @@ namespace DatabaseWorkloadQueryGenerator.Infrastructure
         /// </summary>
         public static IServiceCollection AddApplicationServices(this IServiceCollection services, IConfiguration configuration)
         {
+            services.AddScoped<IAccountSettingsService, AccountSettingsService>();
+            services.AddTransient<IGeneralEmailSender, GeneralEmailSender>();
 
             return services;
         }

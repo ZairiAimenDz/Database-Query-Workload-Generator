@@ -12,9 +12,11 @@
 
 <PageTitle>Confirm email change</PageTitle>
 
-<h1>Confirm email change</h1>
-
-<StatusMessage Message="@message" />
+<DatabaseWorkloadQueryGenerator.Components.Shared.Feedback.FullPageMessage Title="Confirm email change" CTALink="/Account/Manage" CTAText="Go To Profile" SecondaryLink="" ErrorCode="@(message?.StartsWith("Error") ?? false ? "400" : "200")" SubTitle="">
+    <ExtraContent>
+        <StatusMessage Message="@message" />
+    </ExtraContent>
+</DatabaseWorkloadQueryGenerator.Components.Shared.Feedback.FullPageMessage>
 
 @code {
     private string? message;

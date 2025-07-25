@@ -1,0 +1,120 @@
+﻿@using DatabaseWorkloadQueryGenerator.Application.Interfaces.Users
+@using DatabaseWorkloadQueryGenerator.Application.Models.UserEntities
+@rendermode InteractiveServer
+@inject IAccountSettingsService SettingsService
+@inject NavigationManager NavigationM
+
+
+<div class="py-6">
+    <EditForm Model="@Model" OnValidSubmit="Save" class="w-full md:grid md:grid-cols-4 md:gap-4 md:px-0">
+        <dt class="text-sm/6 font-medium text-gray-900 inline-flex max-md:items-center md:items-start justify-between w-full">
+                <p class="font-extrabold inline-flex items-center gap-3">Personal Data
+                @if (IsSuccess)
+                {
+                    <svg class="w-6 h-6 text-green-500" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" viewBox="0 0 24 24">
+                        <path fill-rule="evenodd" d="M2 12C2 6.477 6.477 2 12 2s10 4.477 10 10-4.477 10-10 10S2 17.523 2 12Zm13.707-1.293a1 1 0 0 0-1.414-1.414L11 12.586l-1.793-1.793a1 1 0 0 0-1.414 1.414l2.5 2.5a1 1 0 0 0 1.414 0l4-4Z" clip-rule="evenodd" />
+                    </svg>
+                }</p>
+            
+            @if (!EditMode)
+            {
+                <button @onclick="ToggleEditMode" type="button" class="md:hidden btn btn-warning btn-sm">Delete Data</button>
+            }
+            else
+            {
+                <div class="space-y-2 space-x-2">
+                    <button @onclick="CancelChanges" type="button" class="md:hidden btn btn-success btn-sm">Cancel</button>
+                    <button type="submit" class="md:hidden btn btn-error btn-sm">Confirm Deletion</button>
+                </div/>
+            }
+        </dt>
+        <dd class="mt-1 text-sm/6 text-gray-700 sm:col-span-3 sm:mt-0 w-full">
+            <div class="w-full inline-flex gap-8">
+                <div class="grow">
+                    @if (EditMode)
+                    {
+                    <DataAnnotationsValidator />
+                    <ValidationSummary />
+                        <div>
+                            <label class="label">Your Password</label>
+                            <InputText @bind-Value=@Model.Password  class="input input-bordered" />
+                        </div>
+                        <div class="mt-4">
+                            @if (IsError)
+                            {
+                                <div class="alert alert-error">
+                                    @foreach (var error in Errors)
+                                    {
+                                        <p>@error</p>
+                                    }
+                                </div>
+                            }
+                        </div>
+                    }
+                    else
+                    {
+                        <p>
+                            You can delete your personal data by clicking the button below. This action is <span class="text-error font-semibold">irreversible</span> and will delete all your data from our servers.
+                        </p>
+                    }
+                </div>
+                <div class="space-y-2 space-x-2">
+                    @if (!EditMode)
+                    {
+                        <button @onclick="ToggleEditMode" type="button" class="max-md:hidden btn btn-warning btn-sm">Delete Data</button>
+                    }
+                    else
+                    {
+                        <button @onclick="ToggleEditMode" type="button" class="max-md:hidden btn btn-success btn-sm">Cancel</button>
+                        <button type="submit" class="max-md:hidden btn btn-error btn-sm">Confirm Deletion</button>
+                    }
+                </div>
+            </div>
+        </dd>
+    </EditForm>
+</div>
+
+@code {
+    private bool EditMode = false;
+
+    [Parameter]
+    public Guid UserId { get; set; }
+
+    bool IsSuccess = false;
+    bool IsError = false;
+    string[] Errors = [];
+
+    private DataDeletionConfirmationDTO Model = new();
+
+    protected override Task OnInitializedAsync()
+    {
+        return base.OnInitializedAsync();
+    }
+
+    private async Task Save()
+    {
+
+        var res = await SettingsService.DeleteUserData(UserId, Model);
+        if (res.Succeeded)
+        {
+            NavigationM.NavigateTo(
+                $"UserState/Logout",
+                forceLoad: true);
+        }
+        else
+        {
+            IsError = true;
+            Errors = res.Errors.ToArray() ?? [];
+        }
+    }
+
+    private void ToggleEditMode()
+    {
+        EditMode = !EditMode;
+    }
+
+    public void CancelChanges()
+    {
+        ToggleEditMode();
+    }
+}
