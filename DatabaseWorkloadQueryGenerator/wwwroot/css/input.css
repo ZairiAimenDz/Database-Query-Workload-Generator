@@ -1,0 +1,4 @@
+﻿@import "tailwindcss";
+@plugin "daisyui";
+@source "../../**/*.{razor,cshtml}";
+@source "../../../**/*.{razor,cshtml}";

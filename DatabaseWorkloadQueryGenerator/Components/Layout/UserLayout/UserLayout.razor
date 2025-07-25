@@ -1,0 +1,21 @@
+﻿@inherits LayoutComponentBase
+
+<HeadContent>
+    <link href="_content/Syncfusion.Blazor.Themes/tailwind.css" rel="stylesheet" />
+</HeadContent>
+<div id="start"></div>
+
+<SideNav/>
+
+<main class="pl-16">
+    @Body
+</main>
+
+<DialogueModals/>
+<script src="_content/Syncfusion.Blazor.Core/scripts/syncfusion-blazor.min.js" type="text/javascript"></script>
+
+<div id="blazor-error-ui">
+    An unhandled error has occurred.
+    <a href="" class="reload">Reload</a>
+    <a class="dismiss">🗙</a>
+</div>

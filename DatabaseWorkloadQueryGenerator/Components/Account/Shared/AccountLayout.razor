@@ -1,0 +1,32 @@
+﻿@using DatabaseWorkloadQueryGenerator.Components.Layout
+@inherits LayoutComponentBase
+@layout EmptyLayout
+@inject NavigationManager NavigationManager
+
+<div class="flex min-h-screen flex-col justify-center px-6 py-12 lg:px-8">
+    @if (HttpContext is null)
+    {
+        <p>Loading...</p>
+    }
+    else
+    {
+        <img class="mx-auto h-10 w-auto" src="/favicon.png" alt="Develop MVP .NET">
+
+        @Body
+    }
+</div>
+@code {
+    [CascadingParameter]
+    private HttpContext? HttpContext { get; set; }
+
+    protected override void OnParametersSet()
+    {
+        if (HttpContext is null)
+        {
+            // If this code runs, we're currently rendering in interactive mode, so there is no HttpContext.
+            // The identity pages need to set cookies, so they require an HttpContext. To achieve this we
+            // must transition back from interactive mode to a server-rendered page.
+            NavigationManager.Refresh(forceReload: true);
+        }
+    }
+}

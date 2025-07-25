@@ -1,0 +1,55 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.14.36310.24
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DatabaseWorkloadQueryGenerator", "DatabaseWorkloadQueryGenerator\DatabaseWorkloadQueryGenerator.csproj", "{994C714B-0796-47A0-8F9D-62264D9DADB0}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DatabaseWorkloadQueryGenerator.Client", "DatabaseWorkloadQueryGenerator.Client\DatabaseWorkloadQueryGenerator.Client.csproj", "{51425518-553D-4682-BDB6-A97320E3D0A0}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DatabaseWorkloadQueryGenerator.Application", "DatabaseWorkloadQueryGenerator.Application\DatabaseWorkloadQueryGenerator.Application.csproj", "{68F02B08-B7E4-9E78-C158-3B54FC8D6F9B}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DatabaseWorkloadQueryGenerator.Core", "DatabaseWorkloadQueryGenerator.Core\DatabaseWorkloadQueryGenerator.Core.csproj", "{3157EDA9-151A-6089-D528-5FD27DD11B17}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DatabaseWorkloadQueryGenerator.Infrastructure", "DatabaseWorkloadQueryGenerator.Infrastructure\DatabaseWorkloadQueryGenerator.Infrastructure.csproj", "{02C8C7C3-7D8D-1FF7-12CD-2268F4D22A26}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DatabaseWorkloadQueryGenerator.Runner", "DatabaseWorkloadQueryGenerator.Runner\DatabaseWorkloadQueryGenerator.Runner.csproj", "{CAFA4F94-4EFE-098C-D5C5-852594514C8B}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{994C714B-0796-47A0-8F9D-62264D9DADB0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{994C714B-0796-47A0-8F9D-62264D9DADB0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{994C714B-0796-47A0-8F9D-62264D9DADB0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{994C714B-0796-47A0-8F9D-62264D9DADB0}.Release|Any CPU.Build.0 = Release|Any CPU
+		{51425518-553D-4682-BDB6-A97320E3D0A0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{51425518-553D-4682-BDB6-A97320E3D0A0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{51425518-553D-4682-BDB6-A97320E3D0A0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{51425518-553D-4682-BDB6-A97320E3D0A0}.Release|Any CPU.Build.0 = Release|Any CPU
+		{68F02B08-B7E4-9E78-C158-3B54FC8D6F9B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{68F02B08-B7E4-9E78-C158-3B54FC8D6F9B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{68F02B08-B7E4-9E78-C158-3B54FC8D6F9B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{68F02B08-B7E4-9E78-C158-3B54FC8D6F9B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3157EDA9-151A-6089-D528-5FD27DD11B17}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3157EDA9-151A-6089-D528-5FD27DD11B17}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3157EDA9-151A-6089-D528-5FD27DD11B17}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3157EDA9-151A-6089-D528-5FD27DD11B17}.Release|Any CPU.Build.0 = Release|Any CPU
+		{02C8C7C3-7D8D-1FF7-12CD-2268F4D22A26}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{02C8C7C3-7D8D-1FF7-12CD-2268F4D22A26}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{02C8C7C3-7D8D-1FF7-12CD-2268F4D22A26}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{02C8C7C3-7D8D-1FF7-12CD-2268F4D22A26}.Release|Any CPU.Build.0 = Release|Any CPU
+		{CAFA4F94-4EFE-098C-D5C5-852594514C8B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CAFA4F94-4EFE-098C-D5C5-852594514C8B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CAFA4F94-4EFE-098C-D5C5-852594514C8B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CAFA4F94-4EFE-098C-D5C5-852594514C8B}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {34B72F5A-B38C-44B9-8365-E4AF57C63252}
+	EndGlobalSection
+EndGlobal
